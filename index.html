@@ -4,19 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio — Software Developer</title>
+  <title>Sivasooriyan V — Software Engineer & ServiceNow Developer (CSA | CAD)</title>
+  <meta name="description" content="Portfolio of Sivasooriyan V — ServiceNow Certified (CSA & CAD), Java & Full-Stack Developer specializing in enterprise workflow automation, cryptographic security, and modern web applications.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-dark: #000000;
       --accent: #ff5e36;
       --accent-hover: #ff451a;
+      --accent-glow: rgba(255, 94, 54, 0.35);
       --text-main: #ffffff;
       --text-muted: #b4bac8;
+      --card-bg: transparent;
+      --card-border: rgba(255, 255, 255, 0.15);
       --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
@@ -29,7 +33,7 @@
       background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: var(--font);
-      scroll-behavior: auto;
+      scroll-behavior: smooth;
       overflow-x: hidden;
     }
 
@@ -54,7 +58,7 @@
       pointer-events: none;
     }
 
-    /* Main Content Container Layer - directly over background */
+    /* Content Wrapper directly over the background */
     .content-wrapper {
       position: relative;
       z-index: 10;
@@ -77,26 +81,38 @@
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
       border: none;
+      border-radius: 0;
       z-index: 100;
       margin-bottom: 2rem;
+      box-shadow: none;
     }
 
     .brand-logo {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       color: #fff;
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 0.2rem;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.9);
+      gap: 0.5rem;
+    }
+
+    .brand-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2.4rem;
+      gap: 2.2rem;
       list-style: none;
     }
 
@@ -105,13 +121,30 @@
       text-decoration: none;
       font-size: 0.95rem;
       font-weight: 600;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
       transition: color 0.2s ease;
+      position: relative;
     }
 
     .nav-link:hover,
     .nav-link.active {
       color: #fff;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .btn-pill {
@@ -178,18 +211,105 @@
       transform: translateX(2px);
     }
 
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Mobile Menu Toggle Button */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      padding: 0.4rem;
+    }
+
+    /* Mobile Nav Drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 5rem;
+      left: 1rem;
+      right: 1rem;
+      background: rgba(10, 12, 16, 0.95);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 1.5rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+    }
+
+    .mobile-nav.open {
+      display: flex;
+    }
+
+    .mobile-nav .nav-link {
+      font-size: 1.1rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
     /* ---------------- HERO SECTION ---------------- */
     .hero-section {
       min-height: calc(100vh - 120px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 3rem 0 2rem 0;
+      padding: 2.5rem 0 2rem 0;
+    }
+
+    .hero-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 94, 54, 0.12);
+      border: 1px solid rgba(255, 94, 54, 0.35);
+      color: #ff8264;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      width: fit-content;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      display: inline-block;
     }
 
     .hero-main-row {
       display: grid;
-      grid-template-columns: 1.25fr 0.85fr;
+      grid-template-columns: 1.35fr 0.85fr;
       align-items: center;
       gap: 3rem;
       margin-top: auto;
@@ -203,45 +323,60 @@
     }
 
     .hero-greeting {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--accent);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem;
       letter-spacing: -0.01em;
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
     }
 
     .hero-title {
-      font-size: clamp(3.8rem, 7.5vw, 6.2rem);
+      font-size: clamp(3.2rem, 6.5vw, 5.4rem);
       font-weight: 800;
-      line-height: 0.96;
-      letter-spacing: -0.04em;
+      line-height: 1.02;
+      letter-spacing: -0.035em;
       color: #ffffff;
       text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 2px 10px rgba(0, 0, 0, 0.9);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title .name-highlight {
+      background: linear-gradient(135deg, #ffffff 30%, #ff8264 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero-right {
       display: flex;
       flex-direction: column;
-      gap: 0.9rem;
-      padding-left: 2rem;
+      gap: 1.2rem;
+      padding-left: 1.5rem;
     }
 
     .hero-tagline {
-      font-size: 1.65rem;
+      font-size: 1.45rem;
       font-weight: 700;
-      line-height: 1.3;
+      line-height: 1.35;
       color: #ffffff;
       letter-spacing: -0.02em;
-      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.9);
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
     }
 
     .hero-subtext {
-      font-size: 1.05rem;
-      line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.65;
       color: var(--text-muted);
-      max-width: 340px;
+      max-width: 420px;
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
     }
 
     /* Hero Services Bar (#01 - #04) */
@@ -249,7 +384,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
-      padding-top: 3rem;
+      padding-top: 2.5rem;
       border-top: 1px solid rgba(255, 255, 255, 0.15);
       margin-bottom: 3rem;
     }
@@ -269,44 +404,49 @@
     }
 
     .service-label {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #ffffff;
       letter-spacing: -0.01em;
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
     }
 
-    /* ---------------- BRAND LOGO BAR ---------------- */
+    .service-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ---------------- ENTERPRISE HIGHLIGHTS BAR ---------------- */
     .brand-bar {
       width: 100%;
       background: transparent;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
-      border: none;
-      padding: 2.5rem 0;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 1.8rem 2.2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 2rem;
       margin-bottom: 5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .brand-label {
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      color: var(--text-muted);
-      max-width: 170px;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      max-width: 180px;
       line-height: 1.35;
-      letter-spacing: -0.01em;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     }
 
     .brand-logos {
       display: flex;
       align-items: center;
-      gap: 3.5rem;
+      gap: 2.5rem;
       flex-wrap: wrap;
     }
 
@@ -315,35 +455,34 @@
       align-items: center;
       gap: 0.65rem;
       color: #ffffff;
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.9));
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      padding: 0.4rem 0.9rem;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
     .brand-item:hover {
       transform: translateY(-2px);
+      border-color: rgba(255, 94, 54, 0.4);
     }
 
     .brand-icon {
-      width: 20px;
-      height: 20px;
+      color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* ---------------- SECTION 2: BEHIND THE DESIGNS ---------------- */
+    /* ---------------- SECTION: FEATURED ENGINEERING PROJECTS ---------------- */
     .behind-section {
       width: 100%;
       background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border: none;
-      box-shadow: none;
-      padding: 5rem 0 6rem 0;
-      margin-top: 2rem;
+      padding: 3rem 0 6rem 0;
     }
 
     .behind-header {
@@ -351,40 +490,40 @@
       grid-template-columns: 1.1fr 1fr;
       gap: 4rem;
       align-items: flex-start;
-      margin-bottom: 4.5rem;
+      margin-bottom: 3.5rem;
     }
 
     .behind-subtitle {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--accent);
-      margin-bottom: 1.2rem;
-      letter-spacing: -0.01em;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     }
 
     .behind-title {
-      font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+      font-size: clamp(2.4rem, 4.2vw, 3.4rem);
       font-weight: 800;
       line-height: 1.12;
       letter-spacing: -0.03em;
       color: #ffffff;
-      text-shadow: 0 3px 20px rgba(0, 0, 0, 0.9), 0 1px 4px rgba(0, 0, 0, 0.9);
+      text-shadow: 0 3px 20px rgba(0, 0, 0, 0.9);
     }
 
     .behind-right {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     .behind-desc {
-      font-size: clamp(1.15rem, 1.8vw, 1.35rem);
-      font-weight: 600;
-      line-height: 1.55;
-      color: #ffffff;
-      letter-spacing: -0.01em;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 0.9);
+      font-size: 1.15rem;
+      font-weight: 500;
+      line-height: 1.6;
+      color: #e0e4ee;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
     }
 
     .behind-cta-group {
@@ -397,109 +536,278 @@
     }
 
     .behind-cta-text {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 600;
       color: var(--text-muted);
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     }
 
-    /* 3-Card Portfolio Showcase Grid */
+    /* 3 Engineering Project Cards */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.8rem;
     }
 
-    .portfolio-card {
+    .project-card {
       position: relative;
-      border-radius: 28px;
+      border-radius: 24px;
       overflow: hidden;
-      aspect-ratio: 3 / 4;
-      background: #14161d;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+      transition: transform 0.35s var(--ease-luxury), border-color 0.3s ease, background 0.3s ease;
+      text-decoration: none;
+      color: inherit;
     }
 
-    .portfolio-card:hover {
+    .project-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.9);
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 94, 54, 0.6);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
     }
 
-    .portfolio-card img {
+    .project-card-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(255, 94, 54, 0.15);
+      border: 1px solid rgba(255, 94, 54, 0.35);
+      color: var(--accent);
+      width: fit-content;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .project-card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
+    }
+
+    .project-card-desc {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    }
+
+    .project-tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .tech-tag {
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #e2e8f0;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+    }
+
+    .project-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .project-card-footer svg {
+      transition: transform 0.2s ease;
+    }
+
+    .project-card:hover .project-card-footer svg {
+      transform: translateX(4px);
+    }
+
+    /* ---------------- SECTION: HR VALUE PROPOSITION / QUALIFICATIONS ---------------- */
+    .hr-section {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(100%) contrast(108%);
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px;
+      padding: 3.5rem;
+      margin-bottom: 6rem;
     }
 
-    .portfolio-card:hover img {
-      transform: scale(1.04);
-      filter: grayscale(85%) contrast(112%);
+    .hr-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3rem auto;
     }
 
-    /* Scroll spacing track to allow full animation scrubbing */
+    .hr-subtitle {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .hr-title {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      text-shadow: 0 3px 20px rgba(0, 0, 0, 0.9);
+    }
+
+    .hr-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    }
+
+    .hr-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .hr-card {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .hr-card:hover {
+      border-color: rgba(255, 94, 54, 0.5);
+      transform: translateY(-4px);
+    }
+
+    .hr-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 94, 54, 0.15);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .hr-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    }
+
+    .hr-card-text {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+    }
 
     /* ─── Contact Section ───────────────────────────────────────────── */
     .contact-section {
       position: relative;
       z-index: 10;
-      padding: 120px 60px 80px;
-      max-width: 1400px;
+      padding: 40px 0 80px 0;
+      max-width: 1280px;
       margin: 0 auto;
     }
+
     .contact-header {
       text-align: center;
-      margin-bottom: 72px;
+      margin-bottom: 50px;
     }
+
     .contact-subtitle {
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: #ff5e36;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     }
+
     .contact-title {
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 700;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
       color: #fff;
       line-height: 1.15;
-      margin: 0 0 20px;
-      text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+      margin: 0 0 16px;
+      text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
     }
+
     .contact-desc {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.65);
-      max-width: 520px;
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 580px;
       margin: 0 auto;
-      line-height: 1.7;
+      line-height: 1.6;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
     }
+
     .contact-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 18px;
       margin-bottom: 40px;
     }
+
     .contact-card {
       display: flex;
       align-items: flex-start;
       gap: 16px;
-      padding: 28px 26px;
-      border: 1px solid rgba(255,255,255,0.12);
+      padding: 24px 22px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 16px;
-      background: rgba(255,255,255,0.04);
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       text-decoration: none;
       color: #fff;
       transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
     }
+
     .contact-card:hover {
       background: rgba(255, 94, 54, 0.1);
-      border-color: rgba(255, 94, 54, 0.45);
+      border-color: rgba(255, 94, 54, 0.5);
       transform: translateY(-4px);
     }
+
     .contact-card-icon {
       width: 44px;
       height: 44px;
@@ -511,20 +819,30 @@
       flex-shrink: 0;
       color: #ff5e36;
     }
-    .contact-card-body { display: flex; flex-direction: column; gap: 4px; }
+
+    .contact-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
     .contact-card-label {
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255, 255, 255, 0.55);
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
     }
+
     .contact-card-value {
       font-size: 0.95rem;
-      font-weight: 500;
+      font-weight: 600;
       color: #fff;
       word-break: break-word;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
     }
+
     /* Resume Banner */
     .resume-banner {
       display: flex;
@@ -532,34 +850,58 @@
       justify-content: space-between;
       gap: 32px;
       padding: 36px 44px;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 20px;
-      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 24px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       margin-top: 16px;
     }
+
     .resume-info h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
+      font-size: 1.4rem;
+      font-weight: 800;
       color: #fff;
       margin: 0 0 6px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
     }
+
     .resume-info p {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.55);
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.65);
       margin: 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     }
-    .resume-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-    @media (max-width: 1024px) {
-      .contact-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .resume-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
     }
-    @media (max-width: 768px) {
-      .contact-section { padding: 80px 24px 60px; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .resume-banner { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem 0 3.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer a:hover {
+      color: #fff;
     }
 
     .scroll-spacer {
-      height: 35vh;
+      height: 20vh;
     }
 
     /* ---------------- RESPONSIVE BREAKPOINTS ---------------- */
@@ -584,10 +926,22 @@
       }
 
       .brand-logos {
-        gap: 2rem;
+        gap: 1.2rem;
       }
 
       .hero-services {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hr-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
@@ -599,30 +953,49 @@
 
       .navbar {
         top: 1rem;
-        padding: 0.75rem 0;
+        padding: 0.75rem 1.2rem;
       }
 
-      .nav-links {
+      .nav-links,
+      .nav-actions .btn-white {
         display: none;
       }
 
-      .behind-section {
-        padding: 3rem 0 4rem 0;
+      .mobile-menu-btn {
+        display: block;
       }
 
-      .behind-cta-group {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+      .hero-title {
+        font-size: 2.8rem;
       }
 
       .hero-services {
         grid-template-columns: 1fr;
         gap: 1.2rem;
+      }
+
+      .hr-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .hr-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .resume-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 28px 24px;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
       }
     }
   </style>
@@ -633,123 +1006,192 @@
   <!-- Full-bleed background canvas displaying the 238-frame scroll animation -->
   <canvas id="animation-canvas"></canvas>
 
-  <!-- Foreground UI Content from the reference design directly on the background -->
+  <!-- Foreground UI Content -->
   <div class="content-wrapper">
 
     <!-- 1. Header Navigation -->
     <header class="navbar">
-      <a href="#" class="brand-logo">Portfolio</a>
+      <a href="index.html" class="brand-logo">
+        <span>Sivasooriyan V</span>
+        <span class="brand-badge">CSA &amp; CAD</span>
+      </a>
+
       <nav>
         <ul class="nav-links">
-          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="index.html" class="nav-link active">Home</a></li>
           <li><a href="about.html" class="nav-link">About</a></li>
           <li><a href="projects.html" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
       </nav>
-      <a href="#contact" class="btn-pill btn-white">
-        <span>Get in touch</span>
-        <span class="btn-arrow-circle">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
+
+      <div class="nav-actions">
+        <a href="assets/Sivasooriyan_V_Resume.pdf" target="_blank" class="btn-outline">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
           </svg>
-        </span>
-      </a>
+          <span>Resume</span>
+        </a>
+
+        <a href="#contact" class="btn-pill btn-white">
+          <span>Get in touch</span>
+          <span class="btn-arrow-circle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </span>
+        </a>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
     </header>
 
-    <!-- 2. Hero Section (Directly on top of the smooth animation) -->
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="about.html" class="nav-link">About Me</a>
+      <a href="projects.html" class="nav-link">Projects &amp; Case Studies</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <a href="assets/Sivasooriyan_V_Resume.pdf" target="_blank" class="btn-pill btn-orange" style="margin-top: 0.5rem; justify-content: center;">
+        <span>Download Resume (PDF)</span>
+      </a>
+    </div>
+
+    <!-- 2. Hero Section -->
     <section class="hero-section" id="home">
-      <div class="hero-main-row">
-        <div class="hero-left">
-          <span class="hero-greeting">Hey, I'm a</span>
-          <h1 class="hero-title">Software<br>Developer</h1>
+      <div>
+        <div class="hero-status-pill">
+          <span class="pulse-dot"></span>
+          <span>Open to Software Engineering &amp; ServiceNow Roles</span>
         </div>
-        <div class="hero-right">
-          <h2 class="hero-tagline">Great design should feel invisible.</h2>
-          <p class="hero-subtext">From logo to language, I build brands that connect and convert.</p>
+
+        <div class="hero-main-row">
+          <div class="hero-left">
+            <span class="hero-greeting">Hi, I'm Sivasooriyan</span>
+            <h1 class="hero-title">Software Engineer &amp;<br><span class="name-highlight">ServiceNow Dev</span></h1>
+          </div>
+          <div class="hero-right">
+            <h2 class="hero-tagline">Architecting automated workflows, secure systems, and modern applications.</h2>
+            <p class="hero-subtext">Certified ServiceNow Administrator &amp; Application Developer (CSA | CAD) with a solid core in Java, Data Structures, Web Technologies, and Gemini AI integration.</p>
+            <div class="hero-cta-group">
+              <a href="projects.html" class="btn-pill btn-orange">
+                <span>View Projects</span>
+                <span class="btn-arrow-circle">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+              </a>
+              <a href="assets/Sivasooriyan_V_Resume.pdf" download="Sivasooriyan_V_Resume.pdf" class="btn-outline">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Download Resume</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Services List Row -->
+      <!-- Services List Row (#01 - #04) -->
       <div class="hero-services">
         <div class="service-item">
           <span class="service-num">#01</span>
-          <span class="service-label">Brand Strategy</span>
+          <span class="service-label">ServiceNow CSA &amp; CAD</span>
+          <span class="service-sub">Flows, Business Rules, Catalog &amp; ITSM</span>
         </div>
         <div class="service-item">
           <span class="service-num">#02</span>
-          <span class="service-label">Brand Identity Design</span>
+          <span class="service-label">Core Java &amp; Security</span>
+          <span class="service-sub">OOP, Socket Architecture &amp; AES-256</span>
         </div>
         <div class="service-item">
           <span class="service-num">#03</span>
-          <span class="service-label">Packaging Design</span>
+          <span class="service-label">Full-Stack &amp; APIs</span>
+          <span class="service-sub">REST Integrations, DBMS &amp; Modern Web</span>
         </div>
         <div class="service-item">
           <span class="service-num">#04</span>
-          <span class="service-label">Creative Direction</span>
+          <span class="service-label">Problem Solving</span>
+          <span class="service-sub">100+ LeetCode Solved &amp; SIH '24</span>
         </div>
       </div>
     </section>
 
-    <!-- 3. Trusted By Brands Bar (Directly on background) -->
+    <!-- 3. Enterprise Core Highlights Bar -->
     <div class="brand-bar">
-      <div class="brand-label">Trusted by Brands I've Helped Shape</div>
+      <div class="brand-label">Core Technical Highlights</div>
       <div class="brand-logos">
         <div class="brand-item">
           <span class="brand-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </span>
+          <span>ServiceNow CSA &amp; CAD (2026)</span>
+        </div>
+        <div class="brand-item">
+          <span class="brand-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </span>
+          <span>B.E. CSE — Bannari Amman Inst.</span>
+        </div>
+        <div class="brand-item">
+          <span class="brand-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </span>
+          <span>100+ LeetCode Problems</span>
+        </div>
+        <div class="brand-item">
+          <span class="brand-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <circle cx="12" cy="12" r="10"></circle>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+              <line x1="9" y1="9" x2="9.01" y2="9"></line>
+              <line x1="15" y1="9" x2="15.01" y2="9"></line>
             </svg>
           </span>
-          <span>Supa Blox</span>
-        </div>
-        <div class="brand-item">
-          <span class="brand-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6 2L18 2L12 11L18 22L6 22L12 13L6 2Z"></path>
-            </svg>
-          </span>
-          <span>Hype Blox</span>
-        </div>
-        <div class="brand-item">
-          <span class="brand-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"></circle>
-              <path d="M12 3 A9 9 0 0 0 12 21 Z" fill="currentColor"></path>
-            </svg>
-          </span>
-          <span>Frame Blox</span>
-        </div>
-        <div class="brand-item">
-          <span class="brand-icon">
-            <svg width="22" height="18" viewBox="0 0 28 20" fill="none">
-              <circle cx="8" cy="10" r="7" stroke="currentColor" stroke-width="2"></circle>
-              <circle cx="17" cy="10" r="7" fill="currentColor" fill-opacity="0.8"></circle>
-            </svg>
-          </span>
-          <span>Ultra Blox</span>
+          <span>Gemini AI &amp; Cloud Integration</span>
         </div>
       </div>
     </div>
 
-    <!-- 4. Section 2: Behind the Designs (Directly on background) -->
-    <section class="behind-section" id="about">
+    <!-- 4. Featured Engineering Projects Section -->
+    <section class="behind-section" id="projects-section">
       <div class="behind-header">
         <div class="behind-left">
-          <div class="behind-subtitle">Behind the Designs</div>
-          <h2 class="behind-title">Shaping<br>Experiences That<br>Make Life Simpler</h2>
+          <div class="behind-subtitle">Engineering Portfolio</div>
+          <h2 class="behind-title">Solving Real Problems<br>With Clean Code &amp;<br>Solid Architecture</h2>
         </div>
         <div class="behind-right">
-          <p class="behind-desc">I'm a product designer focused on building clean, intuitive interfaces that solve
-            real-world problems.</p>
+          <p class="behind-desc">From enterprise process automation to military-grade AES cryptography and AI-driven direct marketplaces, explore my key projects built for scalability and performance.</p>
           <div class="behind-cta-group">
-            <span class="behind-cta-text">Let's Build Something Meaningful Together</span>
-            <a href="#contact" class="btn-pill btn-orange">
-              <span>Get in touch</span>
+            <span class="behind-cta-text">Looking for deep-dive case studies?</span>
+            <a href="projects.html" class="btn-pill btn-orange">
+              <span>All Case Studies</span>
               <span class="btn-arrow-circle">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                  stroke-linecap="round" stroke-linejoin="round">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
@@ -759,27 +1201,132 @@
         </div>
       </div>
 
-      <!-- 3 Project Cards matching reference images -->
-      <div class="portfolio-grid" id="projects">
-        <div class="portfolio-card">
-          <img src="assets/jacket.jpg" alt="Fashion Apparel Product Design">
+      <!-- 3 Real Engineering Project Cards -->
+      <div class="portfolio-grid">
+
+        <!-- Card 1: DOCSY -->
+        <a href="projects.html#docsy" class="project-card">
+          <span class="project-card-badge">Enterprise Workflow &amp; Governance</span>
+          <h3 class="project-card-title">DOCSY — Smart Process Documentation System</h3>
+          <p class="project-card-desc">An automated process digitization system that manages document lifecycles through strict workflow stages (Draft &rarr; Review &rarr; Approved) with RBAC and full audit trails.</p>
+          <div class="project-tech-tags">
+            <span class="tech-tag">Workflow Engine</span>
+            <span class="tech-tag">RBAC Security</span>
+            <span class="tech-tag">ServiceNow Concepts</span>
+            <span class="tech-tag">Web Portal</span>
+          </div>
+          <div class="project-card-footer">
+            <span>Explore Architecture</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Card 2: Secure Chat App -->
+        <a href="projects.html#securechat" class="project-card">
+          <span class="project-card-badge">Network Systems &amp; Cryptography</span>
+          <h3 class="project-card-title">CryptShield — Secure Java AES Socket Chat</h3>
+          <p class="project-card-desc">A zero-leakage, multi-client real-time messaging application engineered with Java sockets, AES cryptographic payload encryption, and tamper-resistant authentication handshakes.</p>
+          <div class="project-tech-tags">
+            <span class="tech-tag">Core Java</span>
+            <span class="tech-tag">AES-256 Encryption</span>
+            <span class="tech-tag">Socket Programming</span>
+            <span class="tech-tag">Multi-threading</span>
+          </div>
+          <div class="project-card-footer">
+            <span>Explore Architecture</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Card 3: AgriConnect -->
+        <a href="projects.html#agriconnect" class="project-card">
+          <span class="project-card-badge">AI Integration &amp; Web Platform</span>
+          <h3 class="project-card-title">AgriConnect — AI Direct Farmer-to-Buyer Market</h3>
+          <p class="project-card-desc">Eliminates intermediary commissions by directly connecting farmers with commercial buyers, augmented with Google Gemini API for market price trends and crop health analytics.</p>
+          <div class="project-tech-tags">
+            <span class="tech-tag">Gemini API</span>
+            <span class="tech-tag">RESTful APIs</span>
+            <span class="tech-tag">JavaScript ES6+</span>
+            <span class="tech-tag">Direct Messaging</span>
+          </div>
+          <div class="project-card-footer">
+            <span>Explore Architecture</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 5. What Makes Me a High-Impact Hire for HR -->
+    <section class="hr-section">
+      <div class="hr-header">
+        <div class="hr-subtitle">Why Recruit Me</div>
+        <h2 class="hr-title">Built for Enterprise Delivery From Day One</h2>
+        <p class="hr-desc">Combining certified platform proficiency, rigorous algorithmic training, and strong collaborative communication to deliver measurable engineering value.</p>
+      </div>
+
+      <div class="hr-grid">
+        <div class="hr-card">
+          <div class="hr-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h4 class="hr-card-title">Dual Certified</h4>
+          <p class="hr-card-text">Officially certified ServiceNow CSA &amp; CAD with hands-on knowledge in Flow Designer, Business Rules, Client Scripts, Script Includes, and ITSM.</p>
         </div>
-        <div class="portfolio-card">
-          <img src="assets/headphones.jpg" alt="Audio Hardware Device Design">
+
+        <div class="hr-card">
+          <div class="hr-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <h4 class="hr-card-title">Core Java &amp; DSA</h4>
+          <p class="hr-card-text">Strong foundation in object-oriented programming, data structures, socket networking, and over 100+ solved algorithmic problems on LeetCode.</p>
         </div>
-        <div class="portfolio-card">
-          <img src="assets/cosmetic.jpg" alt="Minimalist Beauty Packaging Design">
+
+        <div class="hr-card">
+          <div class="hr-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h4 class="hr-card-title">API &amp; Cloud Savvy</h4>
+          <p class="hr-card-text">Experienced with REST API consumption, authentication models, Google Gemini AI integration, and version-controlled Git workflows.</p>
+        </div>
+
+        <div class="hr-card">
+          <div class="hr-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h4 class="hr-card-title">Hackathon Tested</h4>
+          <p class="hr-card-text">Participant in Smart India Hackathon (SIH) 2024, demonstrating ability to innovate under tight deadlines and collaborate effectively in teams.</p>
         </div>
       </div>
     </section>
 
-
-    <!-- ─── Contact Section ──────────────────────────────────────────── -->
+    <!-- 6. Contact Section -->
     <section class="contact-section" id="contact">
       <div class="contact-header">
         <div class="contact-subtitle">Get In Touch</div>
         <h2 class="contact-title">Let's Connect &amp;<br>Build Impactful Solutions</h2>
-        <p class="contact-desc">Open to discussing software development opportunities, ServiceNow projects, and technical collaborations.</p>
+        <p class="contact-desc">Open to full-time software engineering roles, ServiceNow developer opportunities, and technical discussions.</p>
       </div>
 
       <div class="contact-grid">
@@ -788,11 +1335,12 @@
         <a href="mailto:sivasooriyanveerappan@gmail.com" class="contact-card">
           <div class="contact-card-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
             </svg>
           </div>
           <div class="contact-card-body">
-            <span class="contact-card-label">Email</span>
+            <span class="contact-card-label">Email Directly</span>
             <span class="contact-card-value">sivasooriyanveerappan@gmail.com</span>
           </div>
         </a>
@@ -805,7 +1353,7 @@
             </svg>
           </div>
           <div class="contact-card-body">
-            <span class="contact-card-label">Phone</span>
+            <span class="contact-card-label">Direct Phone</span>
             <span class="contact-card-value">+91 9025265091</span>
           </div>
         </a>
@@ -814,25 +1362,28 @@
         <div class="contact-card">
           <div class="contact-card-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle>
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
             </svg>
           </div>
           <div class="contact-card-body">
             <span class="contact-card-label">Location</span>
-            <span class="contact-card-value">Tamil Nadu, India</span>
+            <span class="contact-card-value">Kallakurichi / Tamil Nadu, India</span>
           </div>
         </div>
 
         <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/sivasooriyan-v-216181293/" target="_blank" rel="noopener" class="contact-card">
+        <a href="https://linkedin.com/in/sivasooriyan-v3" target="_blank" rel="noopener" class="contact-card">
           <div class="contact-card-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
             </svg>
           </div>
           <div class="contact-card-body">
-            <span class="contact-card-label">LinkedIn</span>
-            <span class="contact-card-value">sivasooriyan-v-216181293</span>
+            <span class="contact-card-label">LinkedIn Profile</span>
+            <span class="contact-card-value">linkedin.com/in/sivasooriyan-v3</span>
           </div>
         </a>
 
@@ -844,8 +1395,8 @@
             </svg>
           </div>
           <div class="contact-card-body">
-            <span class="contact-card-label">GitHub</span>
-            <span class="contact-card-value">SIVASOORIYAN-4533</span>
+            <span class="contact-card-label">GitHub Repository</span>
+            <span class="contact-card-value">github.com/SIVASOORIYAN-4533</span>
           </div>
         </a>
 
@@ -853,29 +1404,31 @@
         <div class="contact-card">
           <div class="contact-card-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
             </svg>
           </div>
           <div class="contact-card-body">
-            <span class="contact-card-label">Education</span>
+            <span class="contact-card-label">Education (2023 - 2027)</span>
             <span class="contact-card-value">Bannari Amman Institute of Technology</span>
           </div>
         </div>
 
-      </div><!-- /.contact-grid -->
+      </div>
 
       <!-- Resume Banner -->
       <div class="resume-banner">
         <div class="resume-info">
-          <h3>Curriculum Vitae / Resume</h3>
-          <p>ServiceNow certifications, technical skills, academic projects &amp; more.</p>
+          <h3>Download Complete Resume</h3>
+          <p>Verified ServiceNow credentials, technical skills matrix, and detailed project documentation.</p>
         </div>
         <div class="resume-actions">
           <a href="assets/Sivasooriyan_V_Resume.pdf" download="Sivasooriyan_V_Resume.pdf" class="btn-pill btn-orange">
-            <span>Download Resume</span>
+            <span>Download PDF</span>
             <span class="btn-arrow-circle">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline>
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
               </svg>
             </span>
           </a>
@@ -883,7 +1436,8 @@
             <span>View Online</span>
             <span class="btn-arrow-circle">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </span>
           </a>
@@ -891,15 +1445,34 @@
       </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="footer">
+      <div>&copy; 2026 Sivasooriyan V. All rights reserved.</div>
+      <div>Designed for clean performance &amp; enterprise impact.</div>
+    </footer>
 
-    <!-- Bottom Spacing for smooth end scrubbing -->
     <div class="scroll-spacer"></div>
 
   </div>
 
-  <!-- Ultra-Smooth Scroll-Driven Canvas Animation Engine -->
+  <!-- Ultra-Smooth Scroll-Driven Canvas Animation Engine & Mobile Menu -->
   <script>
     (function () {
+      // Mobile Drawer Toggle
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const mobileNav = document.getElementById('mobileNav');
+      if (mobileBtn && mobileNav) {
+        mobileBtn.addEventListener('click', function () {
+          mobileNav.classList.toggle('open');
+        });
+        mobileNav.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            mobileNav.classList.remove('open');
+          });
+        });
+      }
+
+      // Background Canvas Animation
       const canvas = document.getElementById('animation-canvas');
       const ctx = canvas.getContext('2d', { alpha: false });
 
@@ -960,7 +1533,6 @@
         const iw = img.naturalWidth;
         const ih = img.naturalHeight;
 
-        // Centered cover calculation
         const scale = Math.max(cw / iw, ch / ih);
         const nw = iw * scale;
         const nh = ih * scale;
@@ -983,7 +1555,6 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', resize);
 
-      // Preload all 238 animation frames asynchronously
       function preload() {
         for (let i = 1; i <= TOTAL_FRAMES; i++) {
           const img = new Image();
@@ -999,7 +1570,6 @@
         }
       }
 
-      // 60/120fps Lerp animation loop for smooth scrubbing
       function animate() {
         const delta = targetFrame - currentFrame;
         if (Math.abs(delta) > 0.0005) {
