@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOCSY — Smart Process Documentation System | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #000000;
+      --accent: #ff5e36;
+      --accent-hover: #ff451a;
+      --text-main: #ffffff;
+      --text-muted: #b4bac8;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font);
+      scroll-behavior: auto;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      background-color: transparent;
+      overflow-x: hidden;
+    }
+
+    /* Fixed Background Canvas for Smooth Scroll Animation */
+    #animation-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Content Wrapper directly over the background */
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ---------------- SMOOTH ENTRANCE ANIMATIONS ---------------- */
+    @keyframes smoothFadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(32px);
+        filter: blur(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes wordReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(36px) scale(0.96);
+        filter: blur(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes navFade {
+      0% {
+        opacity: 0;
+        transform: translateY(-16px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------------- HEADER / NAVBAR ---------------- */
+    .navbar {
+      position: sticky;
+      top: 1.5rem;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
+      z-index: 100;
+      margin-bottom: 2rem;
+      animation: navFade 0.9s var(--ease-luxury) 0.05s backwards;
+    }
+
+    .brand-logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.9);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.4rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fff;
+    }
+
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0.65rem 0.55rem 1.35rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease-luxury), box-shadow 0.25s ease;
+      border: none;
+    }
+
+    .btn-pill:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-white {
+      background: #ffffff;
+      color: #0c0d11;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-white .btn-arrow-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-white:hover .btn-arrow-circle {
+      transform: translateX(2px);
+    }
+
+    .btn-orange {
+      background: linear-gradient(135deg, #ff6a3d 0%, #ff451a 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 24px rgba(255, 94, 54, 0.45);
+    }
+
+    .btn-orange .btn-arrow-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ffffff;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-orange:hover .btn-arrow-circle {
+      transform: translateX(2px);
+    }
+
+    /* ---------------- PROJECT HERO SECTION ---------------- */
+    .project-hero {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 0 3rem 0;
+    }
+
+    /* Tag Animated */
+    .project-tag {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: smoothFadeUp 1s var(--ease-luxury) 0.15s backwards;
+    }
+
+    /* Title Words Staggered Reveal */
+    .project-title {
+      font-size: clamp(3rem, 6.5vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: #ffffff;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.95), 0 2px 10px rgba(0, 0, 0, 0.9);
+      margin-bottom: 1.8rem;
+      max-width: 1050px;
+    }
+
+    .project-title .word {
+      display: inline-block;
+      animation: wordReveal 1.1s var(--ease-luxury) forwards;
+      animation-delay: calc(0.25s + (var(--w) * 0.08s));
+      opacity: 0;
+      margin-right: 0.22em;
+    }
+
+    /* Description Animated */
+    .project-description {
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
+      font-weight: 500;
+      line-height: 1.6;
+      color: #e0e4ee;
+      max-width: 860px;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 0.9);
+      margin-bottom: 2.8rem;
+      animation: smoothFadeUp 1.2s var(--ease-luxury) 0.85s backwards;
+    }
+
+    /* Action Buttons Animated */
+    .project-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      animation: smoothFadeUp 1.1s var(--ease-luxury) 1.05s backwards;
+    }
+
+    /* Project Key Specs Bar (#01 - #04) Staggered */
+    .project-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      margin: 4rem 0 5rem 0;
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      animation: smoothFadeUp 1s var(--ease-luxury) backwards;
+    }
+
+    .metric-item:nth-child(1) { animation-delay: 1.2s; }
+    .metric-item:nth-child(2) { animation-delay: 1.3s; }
+    .metric-item:nth-child(3) { animation-delay: 1.4s; }
+    .metric-item:nth-child(4) { animation-delay: 1.5s; }
+
+    .metric-num {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .metric-label {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+    }
+
+    /* ---------------- SECTION: CORE CAPABILITIES ---------------- */
+    .details-section {
+      width: 100%;
+      background: transparent;
+      padding: 3rem 0 6rem 0;
+    }
+
+    .details-header {
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s var(--ease-luxury), transform 1s var(--ease-luxury);
+    }
+
+    .details-header.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .details-subtitle {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .details-title {
+      font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      text-shadow: 0 3px 20px rgba(0, 0, 0, 0.9), 0 1px 4px rgba(0, 0, 0, 0.9);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .feature-card {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 24px;
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 1s var(--ease-luxury), transform 1s var(--ease-luxury), border-color 0.3s ease;
+    }
+
+    .feature-card.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 94, 54, 0.5);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255, 94, 54, 0.15);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    }
+
+    .feature-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Bottom CTA Banner */
+    .project-footer-cta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 3rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      flex-wrap: wrap;
+      gap: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s var(--ease-luxury), transform 1s var(--ease-luxury);
+    }
+
+    .project-footer-cta.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cta-heading {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+    }
+
+    .cta-subtext {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Scroll spacing track to allow full animation scrubbing */
+    .scroll-spacer {
+      height: 35vh;
+    }
+
+    /* ---------------- RESPONSIVE BREAKPOINTS ---------------- */
+    @media (max-width: 1024px) {
+      .project-metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .content-wrapper {
+        padding: 0 1.25rem;
+      }
+      .navbar {
+        top: 1rem;
+        padding: 0.75rem 0;
+      }
+      .nav-links {
+        display: none;
+      }
+      .project-metrics {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .project-footer-cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Full-bleed background canvas displaying the 238-frame scroll animation -->
+  <canvas id="animation-canvas"></canvas>
+
+  <!-- Foreground UI Content directly on the smooth background -->
+  <div class="content-wrapper">
+
+    <!-- 1. Header Navigation -->
+    <header class="navbar">
+      <a href="index.html" class="brand-logo">Portfolio</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html#home" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="projects.html" class="nav-link active">Projects</a></li>
+        </ul>
+      </nav>
+      <a href="index.html#contact" class="btn-pill btn-white">
+        <span>Get in touch</span>
+        <span class="btn-arrow-circle">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </span>
+      </a>
+    </header>
+
+    <!-- 2. Project Hero Section with Staggered Word Reveal -->
+    <section class="project-hero">
+      <div class="project-tag">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Featured Case Study</span>
+      </div>
+
+      <h1 class="project-title" aria-label="DOCSY – Smart Process Documentation System">
+        <span class="word" style="--w:1">DOCSY</span>
+        <span class="word" style="--w:2">–</span>
+        <span class="word" style="--w:3">Smart</span>
+        <span class="word" style="--w:4">Process</span>
+        <span class="word" style="--w:5">Documentation</span>
+        <span class="word" style="--w:6">System</span>
+      </h1>
+
+      <p class="project-description">
+        A smart documentation platform designed to simplify, organize, and streamline process documentation through an intuitive and user-friendly interface, making information management more efficient, accessible, and structured.
+      </p>
+
+      <div class="project-actions">
+        <a href="#details" class="btn-pill btn-orange">
+          <span>More Details</span>
+          <span class="btn-arrow-circle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+          </span>
+        </a>
+        <a href="index.html#projects" class="btn-pill btn-white">
+          <span>Back to Projects</span>
+          <span class="btn-arrow-circle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 3. Key Metrics & Pillars (#01 - #04) -->
+    <div class="project-metrics">
+      <div class="metric-item">
+        <span class="metric-num">#01</span>
+        <span class="metric-label">Smart Mapping</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">#02</span>
+        <span class="metric-label">Unified Knowledge</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">#03</span>
+        <span class="metric-label">Live Collaboration</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">#04</span>
+        <span class="metric-label">Structured Governance</span>
+      </div>
+    </div>
+
+    <!-- 4. More Details Section (Scroll-triggered smooth reveal) -->
+    <section class="details-section" id="details">
+      <div class="details-header scroll-reveal">
+        <div class="details-subtitle">System Architecture</div>
+        <h2 class="details-title">Built for Efficiency,<br>Clarity, and Scale</h2>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="3" y1="9" x2="21" y2="9"></line>
+              <line x1="9" y1="21" x2="9" y2="9"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title">Intuitive Interface</h3>
+          <p class="feature-text">Zero-clutter design enabling team members to draft, organize, and navigate complex operating procedures effortlessly.</p>
+        </div>
+
+        <div class="feature-card scroll-reveal" style="transition-delay: 0.22s;">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-title">Standardized Templates</h3>
+          <p class="feature-text">Pre-built frameworks and automated versioning ensure standard operating procedures remain uniform across departments.</p>
+        </div>
+
+        <div class="feature-card scroll-reveal" style="transition-delay: 0.34s;">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title">Structured Export</h3>
+          <p class="feature-text">Instantly export documentation into interactive web views, searchable PDFs, or clean Markdown files on demand.</p>
+        </div>
+      </div>
+
+      <div class="project-footer-cta scroll-reveal">
+        <div>
+          <h3 class="cta-heading">Ready to streamline your team's processes?</h3>
+          <p class="cta-subtext">Let's discuss how DOCSY can transform your organizational workflow.</p>
+        </div>
+        <a href="index.html#contact" class="btn-pill btn-orange">
+          <span>Get in touch</span>
+          <span class="btn-arrow-circle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Bottom Spacing for smooth end scrubbing -->
+    <div class="scroll-spacer"></div>
+
+  </div>
+
+  <!-- Ultra-Smooth Scroll-Driven Canvas Animation Engine & Reveal Observer -->
+  <script>
+    (function () {
+      // 1. Scroll-reveal Observer for downstream elements
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+
+      // 2. Background Canvas Animation Engine
+      const canvas = document.getElementById('animation-canvas');
+      const ctx = canvas.getContext('2d', { alpha: false });
+
+      const TOTAL_FRAMES = 238;
+      const images = new Array(TOTAL_FRAMES);
+      let targetFrame = 0;
+      let currentFrame = 0;
+      let lastDrawnImage = null;
+
+      function getFrameUrl(index) {
+        const padded = String(index).padStart(3, '0');
+        let folder = 'frames_1';
+        if (index > 160) {
+          folder = 'frames_3';
+        } else if (index > 80) {
+          folder = 'frames_2';
+        }
+        return `${folder}/ezgif-frame-${padded}.jpg`;
+      }
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        lastDrawnImage = null;
+        renderFrame(Math.round(currentFrame));
+      }
+
+      function getClosestLoadedImage(targetIdx) {
+        if (images[targetIdx] && images[targetIdx].complete && images[targetIdx].naturalWidth > 0) {
+          return images[targetIdx];
+        }
+        for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+          const prev = targetIdx - offset;
+          if (prev >= 0 && images[prev] && images[prev].complete && images[prev].naturalWidth > 0) {
+            return images[prev];
+          }
+          const next = targetIdx + offset;
+          if (next < TOTAL_FRAMES && images[next] && images[next].complete && images[next].naturalWidth > 0) {
+            return images[next];
+          }
+        }
+        return null;
+      }
+
+      function renderFrame(frameIndex) {
+        const img = getClosestLoadedImage(frameIndex);
+        if (!img) return;
+
+        const cw = canvas.width;
+        const ch = canvas.height;
+        const iw = img.naturalWidth;
+        const ih = img.naturalHeight;
+
+        const scale = Math.max(cw / iw, ch / ih);
+        const nw = iw * scale;
+        const nh = ih * scale;
+        const nx = (cw - nw) * 0.5;
+        const ny = (ch - nh) * 0.5;
+
+        ctx.drawImage(img, nx, ny, nw, nh);
+        lastDrawnImage = img;
+      }
+
+      function onScroll() {
+        const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+        const maxScroll = Math.max(1, scrollHeight - clientHeight);
+        const progress = Math.min(1, Math.max(0, scrollTop / maxScroll));
+        targetFrame = progress * (TOTAL_FRAMES - 1);
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', resize);
+
+      // Preload all 238 animation frames asynchronously from 3 divided folders
+      function preload() {
+        for (let i = 1; i <= TOTAL_FRAMES; i++) {
+          const img = new Image();
+          const idx = i - 1;
+          img.src = getFrameUrl(i);
+          img.onload = function () {
+            images[idx] = img;
+            if (idx === 0 && !lastDrawnImage) {
+              renderFrame(0);
+            }
+          };
+          images[idx] = img;
+        }
+      }
+
+      // 60/120fps Lerp animation loop for smooth scrubbing
+      function animate() {
+        const delta = targetFrame - currentFrame;
+        if (Math.abs(delta) > 0.0005) {
+          currentFrame += delta * 0.15;
+        } else {
+          currentFrame = targetFrame;
+        }
+
+        const targetIdx = Math.round(currentFrame);
+        const img = getClosestLoadedImage(targetIdx);
+        if (img && img !== lastDrawnImage) {
+          renderFrame(targetIdx);
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      preload();
+      resize();
+      onScroll();
+      requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
+</html>
